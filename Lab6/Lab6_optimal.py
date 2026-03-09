@@ -1,0 +1,15 @@
+import numpy as np, matplotlib.pyplot as plt
+from statsmodels.nonparametric.kernel_regression import KernelReg
+np.random.seed(42)
+X=np.linspace(0,2*np.pi,100)
+y=np.sin(X)+0.1*np.random.randn(100)
+model=KernelReg(y,X,'c')
+x_test=np.linspace(0,2*np.pi,200); y_pred,_=model.fit(x_test)
+plt.figure(figsize=(10,6))
+plt.scatter(X,y,color='red',edgecolor='black',s=60,alpha=0.7,label='Training Data')
+plt.plot(x_test,y_pred,color='blue',linewidth=3,label="LWR Fit (tau=0.5)")
+plt.title("Locally Weighted Regression",fontsize=16,fontweight='bold')
+plt.xlabel("X"); plt.ylabel("y")
+plt.legend(frameon=True)
+plt.tight_layout()
+plt.show()
